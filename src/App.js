@@ -1,18 +1,23 @@
-import React, { Component } from 'react';
-//import logo from './logo.svg';
+import React, {Component} from 'react';
+import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import './App.css';
-import { Button } from 'reactstrap'
+import Navbar from './components/navbar/Navbar'
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <Button>test</Button>
-        </header>
-      </div>
-    );
-  }
+    render() {
+        return (
+            <div className="App">
+                <Router>
+                    <div>
+                        <Navbar/>
+                        <Switch>
+                            <Route exact path="/" component="Home"/>
+                        </Switch>
+                    </div>
+                </Router>
+            </div>
+        );
+    }
 }
 
 export default App;
