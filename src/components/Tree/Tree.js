@@ -1,5 +1,6 @@
 import React, {Component, createRef} from 'react';
 import {Row, Col, Button, NavLink, Jumbotron, InputGroup, InputGroupAddon, Input} from 'reactstrap';
+import * as JsPDF from 'jspdf';
 
 class Tree extends Component {
     constructor(props) {
@@ -14,6 +15,10 @@ class Tree extends Component {
 
         this.bottomRef = createRef();
         //this.bottomEl;
+
+        this.jumbotron_dimen = "mb-0 p-3"
+
+        this.generateLetter();
     }
 
     test() {
@@ -80,7 +85,7 @@ class Tree extends Component {
         );
 
         return (
-            <Jumbotron style={{"background": "transparent"}}>
+            <Jumbotron className={this.jumbotron_dimen} style={{"background": "transparent"}}>
                 <h3>Are you a migrant worker?</h3>
                 <div>
                     {noButton}
@@ -122,7 +127,7 @@ class Tree extends Component {
         );
 
         return (
-            <Jumbotron style={{"background": "transparent"}}>
+            <Jumbotron className={this.jumbotron_dimen}  style={{"background": "transparent"}}>
                 <h3>What job trouble are you facing?</h3>
                 <div>
                     {firedButton}
@@ -143,7 +148,7 @@ class Tree extends Component {
         }
 
         return (
-            <Jumbotron style={{"background": "transparent"}}>
+            <Jumbotron className={this.jumbotron_dimen} style={{"background": "transparent"}}>
                 <h3>What was your salary?</h3>
                 <Row className={"justify-content-center"}>
                     <Col xs={"12"} sm={"8"} md={"6"} lg={"4"} xl={"3"}>
@@ -176,7 +181,7 @@ class Tree extends Component {
         }
 
         return (
-            <Jumbotron style={{"background": "transparent"}}>
+            <Jumbotron className={this.jumbotron_dimen} style={{"background": "transparent"}}>
                 <h3>How many months of salary does your boss owe you?</h3>
                 <Row className={"justify-content-center"}>
                     <Col xs={"12"} sm={"8"} md={"6"} lg={"4"} xl={"3"}>
@@ -228,7 +233,7 @@ class Tree extends Component {
         );
 
         return (
-            <Jumbotron style={{"background": "transparent"}}>
+            <Jumbotron className={this.jumbotron_dimen} style={{"background": "transparent"}}>
                 <h3>Are you still working for your employer?</h3>
                 <div>
                     {notWorkingButton}
@@ -316,6 +321,18 @@ class Tree extends Component {
             )
         }
     }
+
+    ////////////////////////////////////////////////
+    // Create letter
+    ////////////////////////////////////////////////
+
+    generateLetter() {
+        let doc = new JsPDF();
+        doc.setFont("times");
+        doc.text("Hello World!", 10, 10);
+        doc.save("a4.pdf");
+    }
+
 
     ////////////////////////////////////////////////
     // main
