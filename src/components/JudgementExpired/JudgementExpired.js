@@ -15,7 +15,7 @@ class JudgementExpired extends Component {
 
     render() {
         return (
-            <Jumbotron style={{"textAlign": "left", "margin": "0"}}>
+            <Jumbotron style={{"textAlign": "left", "margin": "0", "background-color": "#FFFFE0"}}>
                 <h3>Sorry, your claim might have expired.</h3>
                 <p>
                     You might not be able to claim your salary under the Small Claims Tribunal. However, you&nbsp;

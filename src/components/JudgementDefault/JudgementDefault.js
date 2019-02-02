@@ -14,7 +14,7 @@ class JudgementDefault extends Component {
 
     render(salary = this.state.salary) {
         return (
-            <Jumbotron style={{"textAlign": "left", "margin": "0"}}>
+            <Jumbotron style={{"textAlign": "left", "margin": "0", "background-color": "#FFFFE0"}}>
                 <h3>Good news!</h3>
                 <p>
                     You can most likely claim the unpaid salary payments from your employer.
