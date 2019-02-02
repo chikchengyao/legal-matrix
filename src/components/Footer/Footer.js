@@ -43,21 +43,22 @@ class Footer extends Component {
         this.fetchServed()
 
         return (
-            <Jumbotron style={{"margin": "0", "textAlign": "left", "position": "fixed", "bottom": "0", "width": "100%"}}>
-                <Row>
-                    <Col xs={"12"} lg={"auto"}>
-                        <h5>Workers served: {this.state.workersServed}</h5>
-                    </Col>
-                    <Col xs={"12"} lg={"auto"}>
-                        <h5>Free legal documents served: {this.state.documentsServed}</h5>
-                    </Col>
-                    <Col/>
-                    <Col xs={"12"} lg={"auto"}>
-                        <p className={"copyright"}>&copy; Legal Matrix (2019). All rights reserved. </p>
-                    </Col>
-                </Row>
-
-            </Jumbotron>
+                <Jumbotron
+                    style={{"margin": "0", "padding": "2em", "paddingLeft": "5em", "paddingRight":"5em", "textAlign": "left", "position": "fixed", "bottom": "0", "width": "100%"}}>
+                    <Row>
+                        <Col xs={"12"} lg={"auto"}>
+                            <h5>Workers served: {this.state.workersServed}</h5>
+                        </Col>
+                        <Col xs={"12"} lg={"auto"}>
+                            <h5>Free legal documents served: {this.state.documentsServed}</h5>
+                        </Col>
+                        <Col/>
+                        <Col xs={"12"} lg={"auto"}>
+                            <p className={"copyright"}>&copy; Legal Matrix (2019). All rights reserved. </p>
+                        </Col>
+                    </Row>
+                    <p style={{"font-size": "0.7em"}}>click to dismiss</p>
+                </Jumbotron>
         );
     }
 }

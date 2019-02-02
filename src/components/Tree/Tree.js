@@ -129,12 +129,12 @@ class Tree extends Component {
         let firedButton = Tree.renderButton(
             this.state.trouble === "fired",
             () => this.handle_Q1_fired(),
-            "My employer fired me"
+            "My boss fired me"
         );
         let unpaidButton = Tree.renderButton(
             this.state.trouble === "unpaid",
             () => this.handle_Q1_unpaid(),
-            "My employer has not paid my salary"
+            "My boss has not paid my salary"
         );
 
         return (
@@ -212,7 +212,7 @@ class Tree extends Component {
 
         return (
             <Jumbotron className={this.jumbotron_dimen} style={{"background": "transparent"}}>
-                <h3>How many months of salary does your employer owe you?</h3>
+                <h3>How many months of salary does your boss owe you?</h3>
                 <Row className={"justify-content-center"}>
                     <Col xs={"12"} sm={"8"} md={"6"} lg={"4"} xl={"3"}>
                         <InputGroup>
@@ -269,7 +269,7 @@ class Tree extends Component {
 
         return (
             <Jumbotron className={this.jumbotron_dimen} style={{"background": "transparent"}}>
-                <h3>Are you still working for your employer?</h3>
+                <h3>Are you still working for your boss?</h3>
                 <div>
                     {notWorkingButton}
                     {workingButton}
