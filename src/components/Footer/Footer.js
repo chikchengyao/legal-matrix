@@ -57,7 +57,6 @@ class Footer extends Component {
                             <p className={"copyright"}>&copy; Legal Matrix (2019). All rights reserved. </p>
                         </Col>
                     </Row>
-                    <p style={{"font-size": "0.7em"}}>click to dismiss</p>
                 </Jumbotron>
         );
     }
