@@ -153,7 +153,7 @@ class Tree extends Component {
     //////////////////////////////////////////
 
     handleSalary() {
-        if (!this.state.salary) {
+        if (!this.state.salary && this.state.temp_salary) {
             this.updateState({
                 salary: this.state.temp_salary,
                 salary_disabled: true,
@@ -195,7 +195,7 @@ class Tree extends Component {
     //////////////////////////////////////////
 
     handleMonths() {
-        if (!this.state.months) {
+        if (!this.state.months && this.state.temp_months) {
             this.updateState({
                 months: this.state.temp_months,
                 months_disabled: true,
@@ -294,7 +294,7 @@ class Tree extends Component {
                         You can most likely claim the unpaid salary payments from your employer. You should either:
                     </p>
                     <ul>
-                        <li>First, you should ask your employer for your salary if you have not already done so. </li>
+                        <li>First, you should ask your employer for your salary if you have not already done so.</li>
                         <li>If that does not work, you can send him a <LetterModal
                             salary={this.state.salary}
                             months={this.state.months}
@@ -302,10 +302,14 @@ class Tree extends Component {
                         /> for your unpaid salary.
                         </li>
                         <li>
-                            If your employer does not reply to your letter, you can force them to to meet you by <a href="http://www.tadm.sg/eservices/employees-file-salary-claim/">filing this claim</a>. Your employer will be fined if they do not come for the meeting.
+                            If your employer does not reply to your letter, you can force them to to meet you by <a
+                            href="http://www.tadm.sg/eservices/employees-file-salary-claim/">filing this claim</a>. Your
+                            employer will be fined if they do not come for the meeting.
                         </li>
                         <li>
-                            Lastly, if the meeting is not successful, you can <a href="https://www.statecourts.gov.sg/cws/ECT/Pages/An-Overview-of-the-Employment-Claims-Tribunals-(ECT).aspx">take the case to court</a> where a judge will hear your claim.
+                            Lastly, if the meeting is not successful, you can <a
+                            href="https://www.statecourts.gov.sg/cws/ECT/Pages/An-Overview-of-the-Employment-Claims-Tribunals-(ECT).aspx">take
+                            the case to court</a> where a judge will hear your claim.
                         </li>
                     </ul>
                 </Jumbotron>
@@ -313,27 +317,27 @@ class Tree extends Component {
         }
     }
 
-    renderJudgementSmallClaim() {
-        let claim_amount = Number(this.state.months) * Number(this.state.salary);
-
-        if (claim_amount > 10000) {
-            return;
-        }
-
-        return (
-            <div>
-                <h4> Filing a claim </h4>
-                <p>
-                    Because your claim amount is less than $10000, you can file a claim with the Tripartite Alliance
-                    for Dispute Management (TADM) for a fee of $10.
-
-                    Make an appointment to file a claim here: <a href="http://www.tadm.sg/eservices/employees-file-salary-claim/">
-                        http://www.tadm.sg/eservices/employees-file-salary-claim/
-                    </a>
-                </p>
-            </div>
-        )
-    }
+    // renderJudgementSmallClaim() {
+    //     let claim_amount = Number(this.state.months) * Number(this.state.salary);
+    //
+    //     if (claim_amount > 10000) {
+    //         return;
+    //     }
+    //
+    //     return (
+    //         <div>
+    //             <h4> Filing a claim </h4>
+    //             <p>
+    //                 Because your claim amount is less than $10000, you can file a claim with the Tripartite Alliance
+    //                 for Dispute Management (TADM) for a fee of $10.
+    //
+    //                 Make an appointment to file a claim here: <a href="http://www.tadm.sg/eservices/employees-file-salary-claim/">
+    //                     http://www.tadm.sg/eservices/employees-file-salary-claim/
+    //                 </a>
+    //             </p>
+    //         </div>
+    //     )
+    // }
 
     renderJudgementExpired() {
         if ((this.state.working === false && Number(this.state.months > 6))
@@ -341,34 +345,41 @@ class Tree extends Component {
         ) {
             return (
                 <Jumbotron style={{"text-align": "left"}}>
-                    <h2>Your salary claim might have expired!</h2>
+                    <h3>Sorry, your claim might have expired.</h3>
                     <p>
-                        However, you <i>should</i> still seek professional legal
-                        advice.
+                        You might not be able to claim your salary under the Small Claims Tribunal. However, you&nbsp;
+                        <i>should</i> still seek professional legal advice on how to proceed.
                     </p>
 
-                    <h4>Here is a list of suitable law firms with free first consultation:</h4>
+                    <p>Here is a list of affordable law firms that can help you:</p>
+
+                    <ul>
+                        <li>
+                            asdf
+                        </li>
+                        <li>
+                            qwer
+                        </li>
+                    </ul>
+
 
                     <p>
                         PLACEHOLDER Show a list of law firms that deal with small claims + provide free first-time
                         consultatations. Show office contact numbers
                     </p>
 
-                    <h4>Legal Clinics</h4>
-
                     <p>
-                        Legal clinics offer you free legal advice. Here is a map of the clinics closest to your location:
+                        If cost is an issue, there are legal clinics that can offer free legal advice. These are the clinics closest to your location:
                     </p>
 
-                    <iframe title="legal-clinics" src="https://www.google.com/maps/d/u/0/embed?mid=1uzAKQTrl50sPPmn0XL3lU-yOBct5ei4a"
-                            width="640" height="480"/>
+                    <iframe title="legal-clinics"
+                            src="https://www.google.com/maps/d/u/0/embed?mid=1uzAKQTrl50sPPmn0XL3lU-yOBct5ei4a"
+                            width="100%" height="480"/>
 
-                    {this.renderJudgementSmallClaim()}
                 </Jumbotron>
             )
         }
     }
-
 
 
     ////////////////////////////////////////////////
@@ -405,6 +416,34 @@ class Tree extends Component {
     }
 
 
+    ///////////////////////////////////////////////
+    // Exceptions
+    ///////////////////////////////////////////////
+
+    renderNotMigrant() {
+        if (this.state.migrant === false) {
+            return (
+                <Jumbotron>
+                    <h1>We're sorry.</h1>
+                    <p>Our platform currently focuses on helping migrant workers. Please come back later!</p>
+                </Jumbotron>
+            );
+        }
+    }
+
+    renderFired() {
+        if (this.state.trouble === "fired") {
+            return (
+                <Jumbotron>
+                    <h1>We're sorry.</h1>
+                    <p>Our platform currently focuses on helping people reclaim unpaid salary. Please come back
+                        later!</p>
+                </Jumbotron>
+            );
+        }
+    }
+
+
     ////////////////////////////////////////////////
     // main
     ////////////////////////////////////////////////
@@ -422,9 +461,12 @@ class Tree extends Component {
                 {this.renderQ2()}
                 {this.renderQ3()}
                 {this.renderQ4()}
+                <div className={"mt-5"}/>
                 {this.renderBottomRef()}
                 {this.renderJudgmentDefault()}
                 {this.renderJudgementExpired()}
+                {this.renderNotMigrant()}
+                {this.renderFired()}
                 {this.scrollToBottom()}
             </div>
         );
