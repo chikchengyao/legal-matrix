@@ -30,16 +30,15 @@ class NavigationBar extends Component {
                 <Navbar color="dark" dark expand="md">
                     <span className={"ml-3"}/>
                     <NavbarBrand href="/" style={{"color": "white"}}><h3 ref="/">Goko</h3></NavbarBrand>
-                    <span className={"ml-2"}/>
-                    <h6 className="sub-brand mb-0">bringing legal advice to the masses</h6>
+                    <h6 className="sub-brand mb-0">every payslip counts</h6>
                     <NavbarToggler onClick={this.toggle} />
                     <Collapse isOpen={this.state.isOpen} navbar>
                         <Nav className="ml-auto" navbar>
                             <NavItem>
-                                <NavLink>Cases</NavLink>
+                                <NavLink href="/options">Know Your Options</NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink href="/options">Know your options</NavLink>
+                                <NavLink href={"/aboutus"}>About Us</NavLink>
                             </NavItem>
                         </Nav>
                     </Collapse>

@@ -12,7 +12,10 @@ class Tree extends Component {
             trouble: null, // either "fired" or "unpaid"
             salary: null, // number, monthly salary
             months: null, // number, number of months owed
-            working: null // bool, still working
+            working: null, // bool, still working
+
+            salary_disabled: false,
+            months_disabled: false,
         };
 
         this.bottomRef = createRef();
@@ -25,7 +28,7 @@ class Tree extends Component {
     }
 
 
-    static renderButton(active, callback, text, color = "success") {
+    static renderButton(active, callback, text, color = "secondary") {
         if (active) {
             return <Button color={color} onClick={callback}>{text}</Button>
         } else {
@@ -63,11 +66,15 @@ class Tree extends Component {
     //////////////////////////////////////////
 
     handle_Q0_migrant() {
-        this.updateState({migrant: true});
+        if (this.state.migrant === null) {
+            this.updateState({migrant: true});
+        }
     }
 
     handle_Q0_not_migrant() {
-        this.updateState({migrant: false});
+        if (this.state.migrant === null) {
+            this.updateState({migrant: false});
+        }
     }
 
     renderQ0() {
@@ -75,7 +82,7 @@ class Tree extends Component {
             this.state.migrant === false,
             () => this.handle_Q0_not_migrant(),
             "No",
-            "danger"
+            "secondary"
         );
         let yesButton = Tree.renderButton(
             this.state.migrant === true,
@@ -85,7 +92,7 @@ class Tree extends Component {
 
         return (
             <Jumbotron className={this.jumbotron_dimen} style={{"background": "transparent"}}>
-                <h3>Are you a migrant worker?</h3>
+                <h3>Firstly, are you a migrant worker?</h3>
                 <div>
                     {noButton}
                     &nbsp;
@@ -101,11 +108,15 @@ class Tree extends Component {
     //////////////////////////////////////////
 
     handle_Q1_fired() {
-        this.updateState({trouble: "fired"});
+        if (!this.state.trouble) {
+            this.updateState({trouble: "fired"});
+        }
     }
 
     handle_Q1_unpaid() {
-        this.updateState({trouble: "unpaid"});
+        if (!this.state.trouble) {
+            this.updateState({trouble: "unpaid"});
+        }
     }
 
 
@@ -127,7 +138,7 @@ class Tree extends Component {
 
         return (
             <Jumbotron className={this.jumbotron_dimen} style={{"background": "transparent"}}>
-                <h3>What job trouble are you facing?</h3>
+                <h3>What trouble are you facing at work?</h3>
                 <div>
                     {firedButton}
                     &nbsp;
@@ -141,6 +152,15 @@ class Tree extends Component {
     // Q2
     //////////////////////////////////////////
 
+    handleSalary() {
+        if (!this.state.salary) {
+            this.updateState({
+                salary: this.state.temp_salary,
+                salary_disabled: true,
+            });
+        }
+    }
+
     renderQ2() {
         if (this.state.trouble === null || this.state.trouble === "fired") {
             return;
@@ -148,18 +168,18 @@ class Tree extends Component {
 
         return (
             <Jumbotron className={this.jumbotron_dimen} style={{"background": "transparent"}}>
-                <h3>What was your salary?</h3>
+                <h3>What is your salary?</h3>
                 <Row className={"justify-content-center"}>
                     <Col xs={"12"} sm={"8"} md={"6"} lg={"4"} xl={"3"}>
                         <InputGroup>
                             <InputGroupAddon addonType="prepend">$</InputGroupAddon>
-                            <Input type="number" onChange={(evt) => {
+                            <Input disabled={this.state.salary_disabled} type="number" onChange={(evt) => {
                                 this.updateState({temp_salary: evt.target.value});
                             }}/>
                             <InputGroupAddon addonType="append">
                                 {Tree.renderButton(
                                     this.state.salary,
-                                    () => this.updateState({salary: this.state.temp_salary}),
+                                    () => this.handleSalary(),
                                     "OK!")}
                             </InputGroupAddon>
                         </InputGroup>
@@ -174,6 +194,15 @@ class Tree extends Component {
     // Q3
     //////////////////////////////////////////
 
+    handleMonths() {
+        if (!this.state.months) {
+            this.updateState({
+                months: this.state.temp_months,
+                months_disabled: true,
+            });
+        }
+    }
+
     renderQ3() {
         if (!this.state.salary) {
             return;
@@ -181,17 +210,17 @@ class Tree extends Component {
 
         return (
             <Jumbotron className={this.jumbotron_dimen} style={{"background": "transparent"}}>
-                <h3>How many months of salary does your boss owe you?</h3>
+                <h3>How many months of salary does your employer owe you?</h3>
                 <Row className={"justify-content-center"}>
                     <Col xs={"12"} sm={"8"} md={"6"} lg={"4"} xl={"3"}>
                         <InputGroup>
-                            <Input type="number" onChange={(evt) => {
+                            <Input disabled={this.state.months_disabled} type="number" onChange={(evt) => {
                                 this.updateState({temp_months: evt.target.value});
                             }}/>
                             <InputGroupAddon addonType="append">
                                 {Tree.renderButton(
                                     this.state.months,
-                                    () => this.updateState({months: this.state.temp_months}),
+                                    () => this.handleMonths(),
                                     "OK!")}
                             </InputGroupAddon>
                         </InputGroup>
@@ -206,11 +235,15 @@ class Tree extends Component {
     //////////////////////////////////////////
 
     handle_Q4_not_working() {
-        this.updateState({working: false});
+        if (this.state.working == null) {
+            this.updateState({working: false});
+        }
     }
 
     handle_Q4_working() {
-        this.updateState({working: true});
+        if (this.state.working === null) {
+            this.updateState({working: true});
+        }
     }
 
 
@@ -222,8 +255,7 @@ class Tree extends Component {
         let notWorkingButton = Tree.renderButton(
             this.state.working === false,
             () => this.handle_Q4_not_working(),
-            "No",
-            "danger"
+            "No"
         );
         let workingButton = Tree.renderButton(
             this.state.working === true,
@@ -262,7 +294,7 @@ class Tree extends Component {
                         You can most likely claim the unpaid salary payments from your employer. You should either:
                     </p>
                     <ul>
-                        <li>First, you should ask your boss for your salary if you have not already done so. </li>
+                        <li>First, you should ask your employer for your salary if you have not already done so. </li>
                         <li>If that does not work, you can send him a <LetterModal
                             salary={this.state.salary}
                             months={this.state.months}
@@ -270,7 +302,7 @@ class Tree extends Component {
                         /> for your unpaid salary.
                         </li>
                         <li>
-                            If your boss does not reply to your letter, you can force your boss to to meet you by <a href="http://www.tadm.sg/eservices/employees-file-salary-claim/">filing this claim</a>. Your boss will be fined if they do not come for the meeting.
+                            If your employer does not reply to your letter, you can force them to to meet you by <a href="http://www.tadm.sg/eservices/employees-file-salary-claim/">filing this claim</a>. Your employer will be fined if they do not come for the meeting.
                         </li>
                         <li>
                             Lastly, if the meeting is not successful, you can <a href="https://www.statecourts.gov.sg/cws/ECT/Pages/An-Overview-of-the-Employment-Claims-Tribunals-(ECT).aspx">take the case to court</a> where a judge will hear your claim.
@@ -381,6 +413,10 @@ class Tree extends Component {
 
         return (
             <div>
+                <Jumbotron>
+                    <h1>Have you been treated unfairly at your workplace?</h1>
+                    <p>We may be able to help you, if you answer a few short questions.</p>
+                </Jumbotron>
                 {this.renderQ0()}
                 {this.renderQ1()}
                 {this.renderQ2()}
