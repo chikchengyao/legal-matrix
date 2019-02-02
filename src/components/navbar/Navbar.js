@@ -26,8 +26,8 @@ class NavigationBar extends Component {
     render() {
         return (
             <div>
-                <Navbar color="light" light expand="md">
-                    <h3 href="/">Goko</h3>
+                <Navbar color="dark" dark expand="md">
+                    <h3 className={"brand"} href="/">Goko</h3>
                     <span className={"ml-4"}/>
                     <h5 className="sub-brand mb-0">bringing legal advice to the masses</h5>
                     <NavbarToggler onClick={this.toggle} />
@@ -39,23 +39,6 @@ class NavigationBar extends Component {
                             <NavItem>
                                 <NavLink href="/">Know your options</NavLink>
                             </NavItem>
-                            {/*<UncontrolledDropdown nav inNavbar>*/}
-                                {/*<DropdownToggle nav caret>*/}
-                                    {/*Options*/}
-                                {/*</DropdownToggle>*/}
-                                {/*<DropdownMenu right>*/}
-                                    {/*<DropdownItem>*/}
-                                        {/*Option 1*/}
-                                    {/*</DropdownItem>*/}
-                                    {/*<DropdownItem>*/}
-                                        {/*Option 2*/}
-                                    {/*</DropdownItem>*/}
-                                    {/*<DropdownItem divider />*/}
-                                    {/*<DropdownItem>*/}
-                                        {/*Reset*/}
-                                    {/*</DropdownItem>*/}
-                                {/*</DropdownMenu>*/}
-                            {/*</UncontrolledDropdown>*/}
                         </Nav>
                     </Collapse>
                 </Navbar>
