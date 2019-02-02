@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {Row, Col, Button, Jumbotron, InputGroup, InputGroupAddon, Input} from 'reactstrap';
+import React, {Component, createRef} from 'react';
+import {Row, Col, Button, NavLink, Jumbotron, InputGroup, InputGroupAddon, Input} from 'reactstrap';
 
 class Tree extends Component {
     constructor(props) {
@@ -11,6 +11,9 @@ class Tree extends Component {
             months: null, // number, number of months owed
             working: null // bool, still working
         };
+
+        this.bottomRef = createRef();
+        //this.bottomEl;
     }
 
     test() {
@@ -22,12 +25,33 @@ class Tree extends Component {
     }
 
 
-    renderButton(active, callback, text, color="success") {
+    renderButton(active, callback, text, color = "success") {
         if (active) {
             return <Button color={color} onClick={callback}>{text}</Button>
         } else {
             return <Button outline color={color} onClick={callback}>{text}</Button>
         }
+    }
+
+    renderBottomRef() {
+        return (
+            <div>
+                <div ref={(el) => this.bottomEl = el}/>
+            </div>
+        )
+    }
+
+    scrollToBottom() {
+        console.log(this.bottomEl);
+        console.log(this.bottomRef)
+    }
+
+    componentDidMount() {
+        this.scrollToBottom();
+    }
+
+    componentDidUpdate() {
+        this.scrollToBottom();
     }
 
     //////////////////////////////////////////
@@ -125,7 +149,9 @@ class Tree extends Component {
                     <Col xs={"12"} sm={"8"} md={"6"} lg={"4"} xl={"3"}>
                         <InputGroup>
                             <InputGroupAddon addonType="prepend">$</InputGroupAddon>
-                            <Input type="number" onChange={(evt) => { this.updateState({temp_salary: evt.target.value});}}/>
+                            <Input type="number" onChange={(evt) => {
+                                this.updateState({temp_salary: evt.target.value});
+                            }}/>
                             <InputGroupAddon addonType="append">
                                 {this.renderButton(
                                     this.state.salary,
@@ -155,7 +181,9 @@ class Tree extends Component {
                 <Row className={"justify-content-center"}>
                     <Col xs={"12"} sm={"8"} md={"6"} lg={"4"} xl={"3"}>
                         <InputGroup>
-                            <Input type="number" onChange={(evt) => { this.updateState({temp_months: evt.target.value});}}/>
+                            <Input type="number" onChange={(evt) => {
+                                this.updateState({temp_months: evt.target.value});
+                            }}/>
                             <InputGroupAddon addonType="append">
                                 {this.renderButton(
                                     this.state.months,
@@ -212,7 +240,82 @@ class Tree extends Component {
     }
 
 
+    ////////////////////////////////////////////////
+    // Judgements
+    ////////////////////////////////////////////////
 
+    renderJudgmentDefault() {
+        // if (this.state.working === null || this.state.months === null) {
+        //     return;
+        // }
+
+        if ((this.state.working === false && (Number(this.state.months) <= 6))
+            || (this.state.working === true && (Number(this.state.months) <= 12))) {
+            return (
+                <Jumbotron style={{"text-align": "left"}}>
+                    <h3>Good news!</h3>
+                    <p>
+                        You can most likely claim the unpaid salary payments from your employer. You should either:
+                    </p>
+                    <ul>
+                        <li>Speak to your boss amicably, if you have not. If that does not work, you may:</li>
+                        <li>Send him a letter of demand for your unpaid salary. Generate that letter here, for free.
+                        </li>
+                    </ul>
+                </Jumbotron>
+            )
+        }
+    }
+
+    renderJudgementSmallClaim() {
+        let claim_amount = Number(this.state.months) * Number(this.state.salary);
+
+        if (claim_amount > 10000) {
+            return;
+        }
+
+        return (
+            <p>
+                Your claim amount is {claim_amount}. Make an appointment with Tripartite Alliance for Dispute
+                Management to file a claim here:
+                <NavLink href={"http://www.tadm.sg/eservices/employees-file-salary-claim/."}>
+                    http://www.tadm.sg/eservices/employees-file-salary-claim/
+                </NavLink>
+            </p>
+        )
+    }
+
+    renderJudgementExpired() {
+        if ((this.state.working === false && Number(this.state.months > 6))
+            || (this.state.working === true && Number(this.state.months > 12))
+        ) {
+            return (
+                <Jumbotron style={{"text-align": "left"}}>
+                    <h3>Your salary claim might have expired!</h3>
+                    <p>
+                        However, you <i>should</i> still seek professional legal
+                        advice.
+                    </p>
+
+                    <p>
+                        <b>Here is a list of suitable law firms with free first consultation:</b>
+                    </p>
+                    <p>
+                        PLACEHOLDER Show a list of law firms that deal with small claims + provide free first-time
+                        consultatations. Show office contact numbers
+                    </p>
+
+                    <p>
+                        <b>Need free legal advice? Go to a legal clinic near you!</b>
+                    </p>
+                    <p> PLACEHOLDER Ask for permission to access location Show nearest legal clinics. Pull clinics info
+                        from http://probono.lawsociety.org.sg/Pages/Legal-Clinic-Locator.aspx </p>
+
+                    {this.renderJudgementSmallClaim()}
+                </Jumbotron>
+            )
+        }
+    }
 
     ////////////////////////////////////////////////
     // main
@@ -227,6 +330,10 @@ class Tree extends Component {
                 {this.renderQ2()}
                 {this.renderQ3()}
                 {this.renderQ4()}
+                {this.renderJudgmentDefault()}
+                {this.renderJudgementExpired()}
+                {this.renderBottomRef()}
+                {this.scrollToBottom()}
             </div>
         );
     }
