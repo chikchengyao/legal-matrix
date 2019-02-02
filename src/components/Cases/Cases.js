@@ -12,17 +12,22 @@ class Cases extends Component {
                         to court.</p>
                 </Jumbotron>
                 <Jumbotron className={"ml-5 mr-5"} style={{"background": "transparent", "text-align": "left"}}>
-                    <h3>KJS v LHLA</h3>
+                    <h3><b>KJS v LHLA</b></h3>
                     <h5>Facts:</h5>
                     <p>
-                        Employer ended their employment contract without notice without paying them. Their employment
-                        contract indicated that the employer needs to give 2 weeks’ notice. This is in breach of s13(1)
-                        of the Employment act.
+                        The employer ended their worker's employment contract without notice and without paying them, even though the
+                        contract indicated that the employer needs to give 2 weeks’ notice for termination. This termination was therefore
+                        in breach of Section 13(1) of the Employment Act.
 
-                        Worker was afraid of being sent back to their country after employment contract ended, therefore
-                        did not insist on staying to serve out the notice of their employment. Worker was afraid that it
-                        would bring attention to their employment status if they argued with their employer
+                        The worker was afraid of being sent back to their country after his employment contract ended, and therefore
+                        did not insist on staying to serve out the notice of their employment. The worker was afraid that arguing with
+                        their employer would bring attention to their unemployment status.
                     </p>
+                    <h5>Important Rulings:</h5>
+                    <ul>
+                        <li> The court ruled that if the employer does not give notice, they then need to compensate workers in lieu of notice, for termination without cause. </li>
+                        <li>The court also ruled that all court fees would be paid by the employer, because they lost the case.</li>
+                    </ul>
                 </Jumbotron>
             </div>
         );

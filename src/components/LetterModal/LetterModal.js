@@ -13,11 +13,15 @@ class LetterModal extends Component {
 
             uploaded: false,
 
+            have_salary: this.props.salary !== undefined,
+            have_months: this.props.months !== undefined,
+
             salary: this.props.salary,
             months: this.props.months,
 
             employee_name: null,
 
+            employer_prefix: null,
             employer_name: null,
             employer_title: null,
             employer_address: null,
@@ -58,6 +62,7 @@ class LetterModal extends Component {
 
         let employee_name = this.state.employee_name;
 
+        let employer_prefix = this.state.employer_prefix;
         let employer_name = this.state.employer_name;
         let employer_title = this.state.employer_title;
         let employer_address = this.state.employer_address;
@@ -91,7 +96,7 @@ class LetterModal extends Component {
             doc.text("Singapore " + zipcode, 20, 40);
         }
 
-        doc.text("Dear Mr./Ms. " + employer_name + ",", 20, 55);
+        doc.text("Dear " + employer_prefix + " " + employer_name + ",", 20, 55);
 
         doc.setFontStyle("bold");
         doc.text("Request for Payment of Arrears in Salary", 65, 65);
@@ -134,6 +139,32 @@ class LetterModal extends Component {
         userdata.then(() => this.updateState({uploaded: true}));
     }
 
+    renderSalary() {
+        if (!this.state.have_salary) {
+            return (
+                <InputGroup className={"mb-1"}>
+                    <InputGroupAddon addonType="prepend">Monthly Salary (SGD)</InputGroupAddon>
+                    <Input placeholder={"e.g. 1500.00"} onChange={(evt) => {
+                        this.updateState({salary: evt.target.value});
+                    }}/>
+                </InputGroup>
+            );
+        }
+    }
+
+    renderMonths() {
+        if (!this.state.have_months) {
+            return (
+                <InputGroup className={"mb-1"}>
+                    <InputGroupAddon addonType="prepend">Months of Salary Owed</InputGroupAddon>
+                    <Input placeholder={"e.g. 4"} onChange={(evt) => {
+                        this.updateState({months: evt.target.value});
+                    }}/>
+                </InputGroup>
+            );
+        }
+    }
+
     render() {
         return (
             <span>
@@ -142,10 +173,20 @@ class LetterModal extends Component {
                 <Modal isOpen={this.state.modal} toggle={() => this.toggle()} className={this.props.className}>
                     <ModalHeader toggle={() => this.toggle()}>Letter of Demand</ModalHeader>
                     <ModalBody>
-                        <InputGroup className={"mb-4"}>
+                        <InputGroup className={"mb-1"}>
                             <InputGroupAddon addonType="prepend">Your Name</InputGroupAddon>
                             <Input placeholder={"e.g. John Doe"} onChange={(evt) => {
                                 this.updateState({employee_name: evt.target.value});
+                            }}/>
+                        </InputGroup>
+
+                        {this.renderMonths()}
+                        {this.renderSalary()}
+
+                        <InputGroup className={"mt-4 mb-1"}>
+                            <InputGroupAddon addonType="prepend">Employer's Name Prefix</InputGroupAddon>
+                            <Input placeholder={"e.g. Mr."} onChange={(evt) => {
+                                this.updateState({employer_prefix: evt.target.value});
                             }}/>
                         </InputGroup>
                         <InputGroup className={"mb-1"}>

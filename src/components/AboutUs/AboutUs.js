@@ -11,11 +11,11 @@ class AboutUs extends Component {
 
         let size = 200;
 
-        return (<Row className={"justify-content-center"}>
-            <Col xs={"12"} lg={"6"}>
-                <img src={goko_img} alt={"logo"}/>
+        return (<Row className={"mt-5 justify-content-center"}>
+            <Col xs={"12"}>
+                <img height={size * 2} src={goko_img} alt={"logo"}/>
             </Col>
-            <Col xs={"12"} lg={"6"}>
+            <Col xs={"12"}>
                 <Row className={"justify-content-center"}>
                     <table>
                         <tbody>

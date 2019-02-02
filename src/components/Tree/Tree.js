@@ -1,7 +1,8 @@
 import React, {Component, createRef} from 'react';
 import {Row, Col, Button, Jumbotron, InputGroup, InputGroupAddon, Input} from 'reactstrap';
 import firestore from '../../firestore';
-import LetterModal from "../LetterModal/LetterModal";
+import JudgementExpired from "../JudgementExpired/JudgementExpired"
+import JudgementDefault from "../JudgementDefault/JudgementDefault";
 
 class Tree extends Component {
     constructor(props) {
@@ -28,11 +29,13 @@ class Tree extends Component {
     }
 
 
-    static renderButton(active, callback, text, color = "secondary") {
+    static renderButton(active, callback, text, margin="1") {
+        let color = "secondary";
+        let marginClassName = "mb-" + margin + " mr-" + margin;
         if (active) {
-            return <Button className={"mb-1 mr-1"} color={color} onClick={callback}>{text}</Button>
+            return <Button className={marginClassName} color={color} onClick={callback}>{text}</Button>
         } else {
-            return <Button className={"mb-1 mr-1"} outline color={color} onClick={callback}>{text}</Button>
+            return <Button className={marginClassName} outline color={color} onClick={callback}>{text}</Button>
         }
     }
 
@@ -81,8 +84,7 @@ class Tree extends Component {
         let noButton = Tree.renderButton(
             this.state.migrant === false,
             () => this.handle_Q0_not_migrant(),
-            "No",
-            "secondary"
+            "No"
         );
         let yesButton = Tree.renderButton(
             this.state.migrant === true,
@@ -140,7 +142,6 @@ class Tree extends Component {
                 <h3>What trouble are you facing at work?</h3>
                 <div>
                     {firedButton}
-                    &nbsp;
                     {unpaidButton}
                 </div>
             </Jumbotron>
@@ -179,7 +180,9 @@ class Tree extends Component {
                                 {Tree.renderButton(
                                     this.state.salary,
                                     () => this.handleSalary(),
-                                    "OK!")}
+                                    "OK!",
+                                "0"
+                                )}
                             </InputGroupAddon>
                         </InputGroup>
                     </Col>
@@ -220,7 +223,9 @@ class Tree extends Component {
                                 {Tree.renderButton(
                                     this.state.months,
                                     () => this.handleMonths(),
-                                    "OK!")}
+                                    "OK!",
+                                "0"
+                                    )}
                             </InputGroupAddon>
                         </InputGroup>
                     </Col>
@@ -267,7 +272,6 @@ class Tree extends Component {
                 <h3>Are you still working for your employer?</h3>
                 <div>
                     {notWorkingButton}
-                    &nbsp;
                     {workingButton}
                 </div>
             </Jumbotron>
@@ -287,96 +291,18 @@ class Tree extends Component {
         if ((this.state.working === false && (Number(this.state.months) <= 6))
             || (this.state.working === true && (Number(this.state.months) <= 12))) {
             return (
-                <Jumbotron style={{"text-align": "left"}}>
-                    <h3>Good news!</h3>
-                    <p>
-                        You can most likely claim the unpaid salary payments from your employer. You should either:
-                    </p>
-                    <ul>
-                        <li>First, you should ask your employer for your salary if you have not already done so.</li>
-                        <li>If that does not work, you can send him a <LetterModal
-                            salary={this.state.salary}
-                            months={this.state.months}
-
-                        /> for your unpaid salary.
-                        </li>
-                        <li>
-                            If your employer does not reply to your letter, you can force them to to meet you by <a
-                            href="http://www.tadm.sg/eservices/employees-file-salary-claim/">filing this claim</a>. Your
-                            employer will be fined if they do not come for the meeting.
-                        </li>
-                        <li>
-                            Lastly, if the meeting is not successful, you can <a
-                            href="https://www.statecourts.gov.sg/cws/ECT/Pages/An-Overview-of-the-Employment-Claims-Tribunals-(ECT).aspx">take
-                            the case to court</a> where a judge will hear your claim.
-                        </li>
-                    </ul>
-                </Jumbotron>
+                <JudgementDefault salary={this.state.salary} months={this.state.months} />
             )
         }
     }
-
-    // renderJudgementSmallClaim() {
-    //     let claim_amount = Number(this.state.months) * Number(this.state.salary);
-    //
-    //     if (claim_amount > 10000) {
-    //         return;
-    //     }
-    //
-    //     return (
-    //         <div>
-    //             <h4> Filing a claim </h4>
-    //             <p>
-    //                 Because your claim amount is less than $10000, you can file a claim with the Tripartite Alliance
-    //                 for Dispute Management (TADM) for a fee of $10.
-    //
-    //                 Make an appointment to file a claim here: <a href="http://www.tadm.sg/eservices/employees-file-salary-claim/">
-    //                     http://www.tadm.sg/eservices/employees-file-salary-claim/
-    //                 </a>
-    //             </p>
-    //         </div>
-    //     )
-    // }
 
     renderJudgementExpired() {
         if ((this.state.working === false && Number(this.state.months > 6))
             || (this.state.working === true && Number(this.state.months > 12))
         ) {
             return (
-                <Jumbotron style={{"text-align": "left"}}>
-                    <h3>Sorry, your claim might have expired.</h3>
-                    <p>
-                        You might not be able to claim your salary under the Small Claims Tribunal. However, you&nbsp;
-                        <i>should</i> still seek professional legal advice on how to proceed.
-                    </p>
-
-                    <p>Here is a list of affordable law firms that can help you:</p>
-
-                    <ul>
-                        <li>
-                            asdf
-                        </li>
-                        <li>
-                            qwer
-                        </li>
-                    </ul>
-
-
-                    <p>
-                        PLACEHOLDER Show a list of law firms that deal with small claims + provide free first-time
-                        consultatations. Show office contact numbers
-                    </p>
-
-                    <p>
-                        If cost is an issue, there are legal clinics that can offer free legal advice. These are the clinics closest to your location:
-                    </p>
-
-                    <iframe title="legal-clinics"
-                            src="https://www.google.com/maps/d/u/0/embed?mid=1uzAKQTrl50sPPmn0XL3lU-yOBct5ei4a"
-                            width="100%" height="480"/>
-
-                </Jumbotron>
-            )
+                <JudgementExpired />
+            );
         }
     }
 
