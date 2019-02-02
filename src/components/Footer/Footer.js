@@ -44,7 +44,7 @@ class Footer extends Component {
 
         return (
                 <Jumbotron
-                    style={{"margin": "0", "padding": "2em", "paddingLeft": "5em", "paddingRight":"5em", "textAlign": "left", "position": "fixed", "bottom": "0", "width": "100%"}}>
+                    style={{"margin": "0", "padding": "2em", "paddingLeft": "5em", "paddingRight":"5em", "textAlign": "left"}}>
                     <Row>
                         <Col xs={"12"} lg={"auto"}>
                             <h5>Workers served: {this.state.workersServed}</h5>
