@@ -24,10 +24,18 @@ class Footer extends Component {
         const db = firestore.firestore();
 
         let workers = db.collection("userdata").get();
-        workers.then((res) => (this.updateState({workersServed: res.size})));
+        workers.then((res) => {
+            if (this.state.workersServed !== res.size) {
+                this.updateState({workersServed: res.size});
+            }
+        });
 
         let documents = db.collection("letters").get();
-        documents.then((res) => (this.updateState({documentsServed: res.size})));
+        documents.then((res) => {
+            if (this.state.documentsServed !== res.size) {
+                this.updateState({documentsServed: res.size});
+            }
+        });
     }
 
     render() {
