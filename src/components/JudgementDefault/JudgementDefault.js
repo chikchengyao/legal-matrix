@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {Jumbotron} from "reactstrap";
 import LetterModal from "../LetterModal/LetterModal";
 
@@ -12,19 +12,19 @@ class JudgementDefault extends Component {
         }
     }
 
-    render() {
+    render(salary = this.state.salary) {
         return (
-            <Jumbotron style={{"text-align": "left"}}>
+            <Jumbotron style={{"textAlign": "left", "margin": "0"}}>
                 <h3>Good news!</h3>
                 <p>
-                    You can most likely claim the unpaid salary payments from your employer. You should either:
+                    You can most likely claim the unpaid salary payments from your employer.
                 </p>
                 <ul>
                     <li>First, you should ask your employer for your salary if you have not already done so.</li>
-                    <li>If that does not work, you can send him a <LetterModal
-                        salary={this.state.salary}
+                    <li>
+                        If that does not work, you can send him a <LetterModal
+                        salary={salary}
                         months={this.state.months}
-
                     /> for your unpaid salary.
                     </li>
                     <li>
@@ -40,11 +40,12 @@ class JudgementDefault extends Component {
                 </ul>
 
                 <p>
-                    Click <a className={"btn btn-link m-0 p-0 mb-1"} href={"/claim"}> here </a> for a permanent link to this page.
+                    Click <a className={"btn btn-link m-0 p-0 mb-1"} href={"/claim"}> here </a> for a permanent link to
+                    this page.
                 </p>
             </Jumbotron>
         );
     }
 }
 
-export default JudgementDefault
+export default JudgementDefault;

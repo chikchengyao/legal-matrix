@@ -348,7 +348,7 @@ class Tree extends Component {
     renderNotMigrant() {
         if (this.state.migrant === false) {
             return (
-                <Jumbotron>
+                <Jumbotron style={{"margin": "0"}}>
                     <h1>We're sorry.</h1>
                     <p>Our platform currently focuses on helping migrant workers. Please come back later!</p>
                 </Jumbotron>
@@ -359,7 +359,7 @@ class Tree extends Component {
     renderFired() {
         if (this.state.trouble === "fired") {
             return (
-                <Jumbotron>
+                <Jumbotron style={{"margin": "0"}}>
                     <h1>We're sorry.</h1>
                     <p>Our platform currently focuses on helping people reclaim unpaid salary. Please come back
                         later!</p>

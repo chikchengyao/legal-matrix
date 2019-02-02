@@ -8,6 +8,7 @@ import NoMatch from './components/NoMatch/NoMatch';
 import Cases from './components/Cases/Cases';
 import JudgementExpired from "./components/JudgementExpired/JudgementExpired";
 import JudgementDefault from "./components/JudgementDefault/JudgementDefault";
+import Footer from "./components/Footer/Footer"
 
 class App extends Component {
     render() {
@@ -25,6 +26,7 @@ class App extends Component {
                             <Route exact path={"/expired"} component={JudgementExpired}/>
                             <Route component={NoMatch}/>
                         </Switch>
+                        <Footer/>
                     </div>
                 </Router>
             </div>

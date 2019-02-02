@@ -3,7 +3,7 @@
   "name": "Goko",
   "icons": [
     {
-      "src": "goko favicon.ico",
+      "src": "goko_favicon.ico",
       "sizes": "32x32 16x16",
       "type": "image/x-icon"
     }
