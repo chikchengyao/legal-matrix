@@ -14,15 +14,10 @@ class Tree extends Component {
         };
 
         this.bottomRef = createRef();
-        //this.bottomEl;
 
         this.jumbotron_dimen = "mb-0 p-3"
 
         this.generateLetter();
-    }
-
-    test() {
-        console.log(test);
     }
 
     updateState(params) {
@@ -30,7 +25,7 @@ class Tree extends Component {
     }
 
 
-    renderButton(active, callback, text, color = "success") {
+    static renderButton(active, callback, text, color = "success") {
         if (active) {
             return <Button color={color} onClick={callback}>{text}</Button>
         } else {
@@ -41,14 +36,16 @@ class Tree extends Component {
     renderBottomRef() {
         return (
             <div>
-                <div ref={(el) => this.bottomEl = el}/>
+                <div ref={this.bottomRef}/>
             </div>
         )
     }
 
     scrollToBottom() {
-        console.log(this.bottomEl);
-        console.log(this.bottomRef)
+        console.log(this.bottomRef);
+        if(this.bottomRef.current) {
+            this.bottomRef.current.scrollIntoView({ behavior: "smooth" });
+        }
     }
 
     componentDidMount() {
@@ -58,6 +55,8 @@ class Tree extends Component {
     componentDidUpdate() {
         this.scrollToBottom();
     }
+
+
 
     //////////////////////////////////////////
     // Q0
@@ -72,13 +71,13 @@ class Tree extends Component {
     }
 
     renderQ0() {
-        let noButton = this.renderButton(
+        let noButton = Tree.renderButton(
             this.state.migrant === false,
             () => this.handle_Q0_not_migrant(),
             "No",
             "danger"
         );
-        let yesButton = this.renderButton(
+        let yesButton = Tree.renderButton(
             this.state.migrant === true,
             () => this.handle_Q0_migrant(),
             "Yes"
@@ -115,12 +114,12 @@ class Tree extends Component {
             return;
         }
 
-        let firedButton = this.renderButton(
+        let firedButton = Tree.renderButton(
             this.state.trouble === "fired",
             () => this.handle_Q1_fired(),
             "My employer fired me"
         );
-        let unpaidButton = this.renderButton(
+        let unpaidButton = Tree.renderButton(
             this.state.trouble === "unpaid",
             () => this.handle_Q1_unpaid(),
             "My employer has not paid my salary"
@@ -158,7 +157,7 @@ class Tree extends Component {
                                 this.updateState({temp_salary: evt.target.value});
                             }}/>
                             <InputGroupAddon addonType="append">
-                                {this.renderButton(
+                                {Tree.renderButton(
                                     this.state.salary,
                                     () => this.updateState({salary: this.state.temp_salary}),
                                     "OK!")}
@@ -190,7 +189,7 @@ class Tree extends Component {
                                 this.updateState({temp_months: evt.target.value});
                             }}/>
                             <InputGroupAddon addonType="append">
-                                {this.renderButton(
+                                {Tree.renderButton(
                                     this.state.months,
                                     () => this.updateState({months: this.state.temp_months}),
                                     "OK!")}
@@ -220,13 +219,13 @@ class Tree extends Component {
             return;
         }
 
-        let notWorkingButton = this.renderButton(
+        let notWorkingButton = Tree.renderButton(
             this.state.working === false,
             () => this.handle_Q4_not_working(),
             "No",
             "danger"
         );
-        let workingButton = this.renderButton(
+        let workingButton = Tree.renderButton(
             this.state.working === true,
             () => this.handle_Q4_working(),
             "Yes"
