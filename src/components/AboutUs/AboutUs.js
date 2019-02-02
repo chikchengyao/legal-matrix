@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Row, Col} from 'reactstrap';
-import goko_img from '../../res/img/goku.png';
+import goko_img from '../../res/img/goko.png';
 import ivan_img from '../../res/img/ivan.png';
 import baolong_img from '../../res/img/baolong.png';
 import chik_img from '../../res/img/chik.png';
