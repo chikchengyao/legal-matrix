@@ -10,7 +10,6 @@ class App extends Component {
                 <Router>
                     <div>
                         <NavigationBar/>
-                        <hr/>
                         <Switch>
                             <Route exact path="/" component={NavigationBar}/>
                         </Switch>

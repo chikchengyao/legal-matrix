@@ -1,7 +1,4 @@
-.navigation-bar {
-    background-color: white;
-}
-
-h2 {
-    font-family: Athelas;
+.sub-brand {
+    color: gray;
+    alignment-baseline: bottom;
 }
