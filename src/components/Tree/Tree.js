@@ -18,8 +18,6 @@ class Tree extends Component {
         this.bottomRef = createRef();
 
         this.jumbotron_dimen = "mb-0 p-3"
-
-        //this.generateLetter();
     }
 
     updateState(params) {
@@ -44,7 +42,6 @@ class Tree extends Component {
     }
 
     scrollToBottom() {
-        console.log(this.bottomRef);
         if (this.bottomRef.current) {
             this.bottomRef.current.scrollIntoView({behavior: "smooth"});
         }
@@ -265,12 +262,14 @@ class Tree extends Component {
                         You can most likely claim the unpaid salary payments from your employer. You should either:
                     </p>
                     <ul>
-                        <li>Speak to your boss amicably, if you have not. If that does not work, you may:</li>
-                        <li>Send him a Letter of Demand for your unpaid salary. You can&nbsp;
-                            <a href="/" onClick={() => this.generateLetter()}>
-                                generate that letter here
-                            </a>, for free.
-
+                        <li>First, you should ask your boss for your salary if you have not already done so. </li>
+                        <li>If that does not work, you can send him a <a href="/" onClick={() => this.generateLetter()}>Letter of Demand</a> for your unpaid salary.
+                        </li>
+                        <li>
+                            If your boss does not reply to your letter, you can force your boss to to meet you by <a href="http://www.tadm.sg/eservices/employees-file-salary-claim/">filing this claim</a>. Your boss will be fined if they do not come for the meeting.
+                        </li>
+                        <li>
+                            Lastly, if the meeting is not successful, you can <a href="https://www.statecourts.gov.sg/cws/ECT/Pages/An-Overview-of-the-Employment-Claims-Tribunals-(ECT).aspx">take the case to court</a> where a judge will hear your claim.
                         </li>
                     </ul>
                 </Jumbotron>
@@ -338,11 +337,57 @@ class Tree extends Component {
     // Create letter
     ////////////////////////////////////////////////
 
+    renderLetterModal() {
+        return (
+
+        );
+    }
+
     generateLetter() {
+        let employer_address = "Blk 123 Example Road";
+        let today_date = "21 Dec 2345";
+        let employer_name = "Boss Doe";
+        let employee_name = "Minion Doe"
+        let claim_amount = "10000"; //format as 2dp
+        let claim_months = "12";
+        let deadline = "45 Jan 2346"
+
         let doc = new JsPDF();
         doc.setFont("times");
-        doc.text("Hello World!", 10, 10);
+        doc.setFontSize(12);
+
+        doc.text(employer_address, 20, 20);
+        doc.text(today_date, 20, 30);
+        doc.text("To:", 20, 40);
+        doc.text(employer_name, 20, 45);
+
+        doc.text("Dear " + employer_name + ",", 20, 55);
+
+        //console.log(doc.getFontList());
+
+        doc.setFontStyle("bold");
+        doc.text("Request for Payment of Arrears in Salary", 70, 65);
+        doc.line(70, 66, 146, 66);
+        doc.setFontStyle("normal");
+
+        doc.text("I have repeatedly requested payment of my long overdue salary in the amount of $" + claim_amount + ",", 20, 75);
+        doc.text("that has accrued over the past " + claim_months + " months.", 20, 80);
+
+        doc.text("In accordance with the Employment Act (Cap 91), you must pay my salary at least once a month", 20, 90);
+        doc.text("and within 7 days after the end of the salary period.", 20, 95);
+
+        doc.text("By not paying my salary in the amount of SGD$" + claim_amount + ", you are in breach of Section 21(1) of the", 20, 105);
+        doc.text("Employment Act.", 20, 110);
+
+        doc.text("Unless I receive payment in full of this amount by " +  deadline + ", I shall begin court proceedings", 20, 120);
+        doc.text("against you. This will result in you being liable for legal fees and costs in addition to the amount", 20, 125);
+        doc.text("above.", 20, 130);
+
+        doc.text("Yours sincerely,", 20, 140);
+        doc.text(employee_name, 20, 145);
+
         doc.save("a4.pdf");
+
     }
 
     ////////////////////////////////////////////////
@@ -370,7 +415,7 @@ class Tree extends Component {
             working: this.state.working,
         });
 
-        userdata.then(() => this.updateState({uploaded: true});
+        userdata.then(() => this.updateState({uploaded: true}));
 
         // userRef.then(() => {
         //     let temp = db.collection("tests").where("testdata", "==", "X").get();
