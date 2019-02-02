@@ -144,37 +144,37 @@ class LetterModal extends Component {
                     <ModalBody>
                         <InputGroup className={"mb-4"}>
                             <InputGroupAddon addonType="prepend">Your Name</InputGroupAddon>
-                            <Input placeholder={"John Doe"} onChange={(evt) => {
+                            <Input placeholder={"e.g. John Doe"} onChange={(evt) => {
                                 this.updateState({employee_name: evt.target.value});
                             }}/>
                         </InputGroup>
                         <InputGroup className={"mb-1"}>
                             <InputGroupAddon addonType="prepend">Employer's Name</InputGroupAddon>
-                            <Input placeholder={"Jane Doe"} onChange={(evt) => {
+                            <Input placeholder={"e.g. Jane Doe"} onChange={(evt) => {
                                 this.updateState({employer_name: evt.target.value});
                             }}/>
                         </InputGroup>
                         <InputGroup className={"mb-1"}>
                             <InputGroupAddon addonType="prepend">Employer's Title</InputGroupAddon>
-                            <Input placeholder="Senior Manager" onChange={(evt) => {
+                            <Input placeholder="e.g. Senior Manager" onChange={(evt) => {
                                 this.updateState({employer_title: evt.target.value});
                             }}/>
                         </InputGroup>
                         <InputGroup className={"mb-1"}>
                             <InputGroupAddon addonType="prepend">Employer's Address (Line 1)</InputGroupAddon>
-                            <Input placeholder={"Blk 123 Park Lane"} onChange={(evt) => {
+                            <Input placeholder={"e.g. Blk 123 Park Lane"} onChange={(evt) => {
                                 this.updateState({employer_address: evt.target.value});
                             }}/>
                         </InputGroup>
                         <InputGroup className={"mb-1"}>
                             <InputGroupAddon addonType="prepend">Employer's Address (Line 2)</InputGroupAddon>
-                            <Input placeholder={"#12-123"} onChange={(evt) => {
+                            <Input placeholder={"e.g. #12-123"} onChange={(evt) => {
                                 this.updateState({employer_address_2: evt.target.value});
                             }}/>
                         </InputGroup>
                         <InputGroup className={"mb-1"}>
                             <InputGroupAddon addonType="prepend">Employer's Zipcode</InputGroupAddon>
-                            <Input placeholder={"123456"} onChange={(evt) => {
+                            <Input placeholder={"e.g. 123456"} onChange={(evt) => {
                                 this.updateState({zipcode: evt.target.value});
                             }}/>
                         </InputGroup>

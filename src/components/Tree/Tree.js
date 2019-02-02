@@ -30,9 +30,9 @@ class Tree extends Component {
 
     static renderButton(active, callback, text, color = "secondary") {
         if (active) {
-            return <Button color={color} onClick={callback}>{text}</Button>
+            return <Button className={"mb-1 mr-1"} color={color} onClick={callback}>{text}</Button>
         } else {
-            return <Button outline color={color} onClick={callback}>{text}</Button>
+            return <Button className={"mb-1 mr-1"} outline color={color} onClick={callback}>{text}</Button>
         }
     }
 
@@ -95,7 +95,6 @@ class Tree extends Component {
                 <h3>Firstly, are you a migrant worker?</h3>
                 <div>
                     {noButton}
-                    &nbsp;
                     {yesButton}
                 </div>
             </Jumbotron>
@@ -153,7 +152,7 @@ class Tree extends Component {
     //////////////////////////////////////////
 
     handleSalary() {
-        if (!this.state.salary && this.state.temp_salary) {
+        if (!this.state.salary && this.state.temp_salary && this.state.temp_salary > 0) {
             this.updateState({
                 salary: this.state.temp_salary,
                 salary_disabled: true,
@@ -195,7 +194,7 @@ class Tree extends Component {
     //////////////////////////////////////////
 
     handleMonths() {
-        if (!this.state.months && this.state.temp_months) {
+        if (!this.state.months && this.state.temp_months && this.state.temp_months > 0) {
             this.updateState({
                 months: this.state.temp_months,
                 months_disabled: true,

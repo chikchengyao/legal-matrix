@@ -19,11 +19,13 @@ class NavigationBar extends Component {
             isOpen: false
         };
     }
+
     toggle() {
         this.setState({
             isOpen: !this.state.isOpen
         });
     }
+
     render() {
         return (
             <div>
@@ -31,11 +33,14 @@ class NavigationBar extends Component {
                     <span className={"ml-3"}/>
                     <NavbarBrand href="/" style={{"color": "white"}}><h3 ref="/">Goko</h3></NavbarBrand>
                     <h6 className="sub-brand mb-0">every payslip counts</h6>
-                    <NavbarToggler onClick={this.toggle} />
+                    <NavbarToggler onClick={this.toggle}/>
                     <Collapse isOpen={this.state.isOpen} navbar>
                         <Nav className="ml-auto" navbar>
                             <NavItem>
                                 <NavLink href="/options">Know Your Options</NavLink>
+                            </NavItem>
+                            <NavItem>
+                                <NavLink href="/cases">Past Cases</NavLink>
                             </NavItem>
                             <NavItem>
                                 <NavLink href={"/aboutus"}>About Us</NavLink>
