@@ -1,11 +1,13 @@
 import React, {Component, createRef} from 'react';
-import {Row, Col, Button, NavLink, Jumbotron, InputGroup, InputGroupAddon, Input} from 'reactstrap';
+import {Row, Col, Button, Jumbotron, InputGroup, InputGroupAddon, Input} from 'reactstrap';
 import * as JsPDF from 'jspdf';
+import firestore from '../../firestore';
 
 class Tree extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            uploaded: false,
             migrant: null, //
             trouble: null, // either "fired" or "unpaid"
             salary: null, // number, monthly salary
@@ -17,7 +19,7 @@ class Tree extends Component {
 
         this.jumbotron_dimen = "mb-0 p-3"
 
-        this.generateLetter();
+        //this.generateLetter();
     }
 
     updateState(params) {
@@ -43,8 +45,8 @@ class Tree extends Component {
 
     scrollToBottom() {
         console.log(this.bottomRef);
-        if(this.bottomRef.current) {
-            this.bottomRef.current.scrollIntoView({ behavior: "smooth" });
+        if (this.bottomRef.current) {
+            this.bottomRef.current.scrollIntoView({behavior: "smooth"});
         }
     }
 
@@ -54,8 +56,9 @@ class Tree extends Component {
 
     componentDidUpdate() {
         this.scrollToBottom();
-    }
 
+        this.uploadState();
+    }
 
 
     //////////////////////////////////////////
@@ -126,7 +129,7 @@ class Tree extends Component {
         );
 
         return (
-            <Jumbotron className={this.jumbotron_dimen}  style={{"background": "transparent"}}>
+            <Jumbotron className={this.jumbotron_dimen} style={{"background": "transparent"}}>
                 <h3>What job trouble are you facing?</h3>
                 <div>
                     {firedButton}
@@ -263,7 +266,11 @@ class Tree extends Component {
                     </p>
                     <ul>
                         <li>Speak to your boss amicably, if you have not. If that does not work, you may:</li>
-                        <li>Send him a letter of demand for your unpaid salary. Generate that letter here, for free.
+                        <li>Send him a Letter of Demand for your unpaid salary. You can&nbsp;
+                            <a href="/" onClick={() => this.generateLetter()}>
+                                generate that letter here
+                            </a>, for free.
+
                         </li>
                     </ul>
                 </Jumbotron>
@@ -279,13 +286,17 @@ class Tree extends Component {
         }
 
         return (
-            <p>
-                Your claim amount is {claim_amount}. Make an appointment with Tripartite Alliance for Dispute
-                Management to file a claim here:
-                <NavLink href={"http://www.tadm.sg/eservices/employees-file-salary-claim/."}>
-                    http://www.tadm.sg/eservices/employees-file-salary-claim/
-                </NavLink>
-            </p>
+            <div>
+                <h4> Filing a claim </h4>
+                <p>
+                    Because your claim amount is less than $10000, you can file a claim with the Tripartite Alliance
+                    for Dispute Management (TADM) for a fee of $10.
+
+                    Make an appointment to file a claim here: <a href="http://www.tadm.sg/eservices/employees-file-salary-claim/">
+                        http://www.tadm.sg/eservices/employees-file-salary-claim/
+                    </a>
+                </p>
+            </div>
         )
     }
 
@@ -295,25 +306,27 @@ class Tree extends Component {
         ) {
             return (
                 <Jumbotron style={{"text-align": "left"}}>
-                    <h3>Your salary claim might have expired!</h3>
+                    <h2>Your salary claim might have expired!</h2>
                     <p>
                         However, you <i>should</i> still seek professional legal
                         advice.
                     </p>
 
-                    <p>
-                        <b>Here is a list of suitable law firms with free first consultation:</b>
-                    </p>
+                    <h4>Here is a list of suitable law firms with free first consultation:</h4>
+
                     <p>
                         PLACEHOLDER Show a list of law firms that deal with small claims + provide free first-time
                         consultatations. Show office contact numbers
                     </p>
 
+                    <h4>Legal Clinics</h4>
+
                     <p>
-                        <b>Need free legal advice? Go to a legal clinic near you!</b>
+                        Legal clinics offer you free legal advice. Here is a map of the clinics closest to your location:
                     </p>
-                    <p> PLACEHOLDER Ask for permission to access location Show nearest legal clinics. Pull clinics info
-                        from http://probono.lawsociety.org.sg/Pages/Legal-Clinic-Locator.aspx </p>
+
+                    <iframe title="legal-clinics" src="https://www.google.com/maps/d/u/0/embed?mid=1uzAKQTrl50sPPmn0XL3lU-yOBct5ei4a"
+                            width="640" height="480"/>
 
                     {this.renderJudgementSmallClaim()}
                 </Jumbotron>
@@ -332,6 +345,39 @@ class Tree extends Component {
         doc.save("a4.pdf");
     }
 
+    ////////////////////////////////////////////////
+    // Store state
+    ////////////////////////////////////////////////
+
+    uploadState() {
+        if (
+            this.state.uploaded === true
+            || this.state.migrant === null
+            || this.state.trouble === null
+            || this.state.salary === null
+            || this.state.months === null
+            || this.state.working === null
+        ) {
+            return; // don't store incomplete data
+        }
+
+        const db = firestore.firestore();
+        const userdata = db.collection("userdata").add({
+            migrant: this.state.migrant,
+            trouble: this.state.trouble,
+            salary: this.state.salary,
+            months: this.state.months,
+            working: this.state.working,
+        });
+
+        userdata.then(() => this.updateState({uploaded: true});
+
+        // userRef.then(() => {
+        //     let temp = db.collection("tests").where("testdata", "==", "X").get();
+        //     temp.then((res) => res.forEach((arg) => console.log(arg.data())));
+        // });
+    }
+
 
     ////////////////////////////////////////////////
     // main
@@ -346,9 +392,9 @@ class Tree extends Component {
                 {this.renderQ2()}
                 {this.renderQ3()}
                 {this.renderQ4()}
+                {this.renderBottomRef()}
                 {this.renderJudgmentDefault()}
                 {this.renderJudgementExpired()}
-                {this.renderBottomRef()}
                 {this.scrollToBottom()}
             </div>
         );
