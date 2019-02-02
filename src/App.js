@@ -3,6 +3,7 @@ import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import './App.css';
 import NavigationBar from './components/navbar/Navbar'
 import AboutUs from './components/AboutUs/AboutUs'
+import Tree from './components/Tree/Tree'
 
 class App extends Component {
     render() {
@@ -13,6 +14,7 @@ class App extends Component {
                         <NavigationBar/>
                         <Switch>
                             <Route exact path="/" component={AboutUs}/>
+                            <Route path={"/options"} component={Tree}/>
                         </Switch>
                     </div>
                 </Router>
