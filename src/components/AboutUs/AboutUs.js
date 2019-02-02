@@ -11,7 +11,8 @@ class AboutUs extends Component {
 
         let size = 200;
 
-        return (<Row className={"mt-5 justify-content-center"}>
+        return (
+            <Row className={"mt-5 justify-content-center mb-5"}>
             <Col xs={"12"}>
                 <img height={size * 2} src={goko_img} alt={"logo"}/>
             </Col>

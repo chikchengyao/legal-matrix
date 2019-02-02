@@ -325,6 +325,7 @@ class Tree extends Component {
 
         const db = firestore.firestore();
         const userdata = db.collection("userdata").add({
+            millis: Date.now(),
             migrant: this.state.migrant,
             trouble: this.state.trouble,
             salary: this.state.salary,
@@ -348,7 +349,7 @@ class Tree extends Component {
     renderNotMigrant() {
         if (this.state.migrant === false) {
             return (
-                <Jumbotron style={{"margin": "0"}}>
+                <Jumbotron style={{"margin": "0", "background-color": "#F0FFFF"}}>
                     <h1>We're sorry.</h1>
                     <p>Our platform currently focuses on helping migrant workers. Please come back later!</p>
                 </Jumbotron>
@@ -359,7 +360,7 @@ class Tree extends Component {
     renderFired() {
         if (this.state.trouble === "fired") {
             return (
-                <Jumbotron style={{"margin": "0"}}>
+                <Jumbotron style={{"margin": "0", "background-color": "#F0FFFF"}}>
                     <h1>We're sorry.</h1>
                     <p>Our platform currently focuses on helping people reclaim unpaid salary. Please come back
                         later!</p>
@@ -377,7 +378,7 @@ class Tree extends Component {
 
         return (
             <div>
-                <Jumbotron>
+                <Jumbotron style={{"background-color": "#ffeb64"}}>
                     <h1>Have you been treated unfairly at your workplace?</h1>
                     <p>We may be able to help you, if you answer a few short questions.</p>
                 </Jumbotron>

@@ -6,9 +6,9 @@ class Cases extends Component {
     render() {
         return (
             <div>
-                <Jumbotron className={"m-0"}>
-                    <h1>Past cases</h1>
-                    <p>If you are treated unfairly, you have a case. Here are some previous cases where people have gone
+                <Jumbotron className={"m-0"} style={{"background-color": "#4a5157"}}>
+                    <h1 style={{"color": "#E0E1E7"}}>Past cases</h1>
+                    <p style={{"color": "#E0E1E7"}}>If you are treated unfairly, you have a case. Here are some previous cases where people have gone
                         to court.</p>
                 </Jumbotron>
                 <Jumbotron className={"ml-5 mr-5"} style={{"background": "transparent", "text-align": "left"}}>

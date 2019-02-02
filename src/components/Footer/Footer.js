@@ -43,16 +43,20 @@ class Footer extends Component {
         this.fetchServed()
 
         return (
-            <Jumbotron style={{"background": "#B0B1B7", "margin": "0", "textAlign": "left"}}>
+            <Jumbotron style={{"margin": "0", "textAlign": "left", "position": "fixed", "bottom": "0", "width": "100%"}}>
                 <Row>
-                    <Col xs={"12"}>
-                        <h3>Workers served: {this.state.workersServed}</h3>
+                    <Col xs={"12"} lg={"auto"}>
+                        <h5>Workers served: {this.state.workersServed}</h5>
                     </Col>
-                    <Col xs={"12"}>
-                        <h3>Free legal documents served: {this.state.documentsServed}</h3>
+                    <Col xs={"12"} lg={"auto"}>
+                        <h5>Free legal documents served: {this.state.documentsServed}</h5>
+                    </Col>
+                    <Col/>
+                    <Col xs={"12"} lg={"auto"}>
+                        <p className={"copyright"}>&copy; Legal Matrix (2019). All rights reserved. </p>
                     </Col>
                 </Row>
-                <p className={"copyright"}>&copy; Legal Matrix (2019). All rights reserved. </p>
+
             </Jumbotron>
         );
     }

@@ -29,9 +29,9 @@ class NavigationBar extends Component {
     render() {
         return (
             <div>
-                <Navbar color="dark" dark expand="md">
+                <Navbar color="dark" dark expand="md" style={{"position": "fixed", "top": "0", "width": "100%", "z-index": "999"}}>
                     <span className={"ml-3"}/>
-                    <NavbarBrand href="/" style={{"color": "white"}}><h3 ref="/">Goko</h3></NavbarBrand>
+                    <NavbarBrand href="/" style={{"color": "#F2C336"}}><h3 ref="/">Goko</h3></NavbarBrand>
                     <h6 className="sub-brand mb-0">every payslip counts</h6>
                     <NavbarToggler onClick={this.toggle}/>
                     <Collapse isOpen={this.state.isOpen} navbar>
@@ -41,6 +41,9 @@ class NavigationBar extends Component {
                             </NavItem>
                             <NavItem>
                                 <NavLink href="/cases">Past Cases</NavLink>
+                            </NavItem>
+                            <NavItem>
+                                <NavLink href="/trends">Trends</NavLink>
                             </NavItem>
                             <NavItem>
                                 <NavLink href={"/aboutus"}>About Us</NavLink>

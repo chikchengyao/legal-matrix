@@ -123,6 +123,7 @@ class LetterModal extends Component {
 
         const db = firestore.firestore();
         const userdata = db.collection("letters").add({
+            millis: Date.now(),
             raw_date,
             employee_name,
             employer_name,
