@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Button, Jumbotron} from 'reactstrap';
+import {Row, Col, Button, Jumbotron, InputGroup, InputGroupAddon, Input} from 'reactstrap';
 
 class Tree extends Component {
     constructor(props) {
@@ -49,21 +49,35 @@ class Tree extends Component {
         );
 
         return (
-            <div>
-                {firedButton}
-                &nbsp;
-                {unpaidButton}
-            </div>
+            <Jumbotron style={{"background": "transparent"}}>
+                <h3>What job trouble are you facing?</h3>
+                <div>
+                    {firedButton}
+                    &nbsp;
+                    {unpaidButton}
+                </div>
+            </Jumbotron>
         )
     }
 
     renderQ2() {
+        if (this.state.trouble === null) {
+            return;
+        }
 
         return (
-            <div>
-
-
-            </div>
+            <Jumbotron style={{"background": "transparent"}}>
+                <h3>What was your salary?</h3>
+                <Row className={"justify-content-center"}>
+                    <Col xs={"12"} sm={"8"} md={"6"} lg={"4"} xl={"3"}>
+                        <InputGroup>
+                            <InputGroupAddon addonType="prepend">$</InputGroupAddon>
+                            <Input/>
+                            <InputGroupAddon addonType="append"><Button color="secondary">OK!</Button></InputGroupAddon>
+                        </InputGroup>
+                    </Col>
+                </Row>
+            </Jumbotron>
         );
     }
 
@@ -73,14 +87,8 @@ class Tree extends Component {
         let q2 = this.renderQ2();
         return (
             <div>
-                <Jumbotron style={{"background": "transparent"}}>
-                    <h3>What job trouble are you facing?</h3>
-                    {q1}
-                </Jumbotron>
-                <Jumbotron style={{"background": "transparent"}}>
-                    <h3>What was your salary?</h3>
-                    {q2}
-                </Jumbotron>
+                {q1}
+                {q2}
             </div>
         );
     }

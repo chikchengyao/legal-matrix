@@ -8,6 +8,7 @@ import {
     NavLink,
 } from 'reactstrap';
 import "./Navbar.css"
+import NavbarBrand from "reactstrap/es/NavbarBrand";
 
 class NavigationBar extends Component {
     constructor(props) {
@@ -27,17 +28,18 @@ class NavigationBar extends Component {
         return (
             <div>
                 <Navbar color="dark" dark expand="md">
-                    <h3 className={"brand"} href="/">Goko</h3>
-                    <span className={"ml-4"}/>
-                    <h5 className="sub-brand mb-0">bringing legal advice to the masses</h5>
+                    <span className={"ml-3"}/>
+                    <NavbarBrand style={{"color": "white"}}><h3 ref="/">Goko</h3></NavbarBrand>
+                    <span className={"ml-2"}/>
+                    <h6 className="sub-brand mb-0">bringing legal advice to the masses</h6>
                     <NavbarToggler onClick={this.toggle} />
                     <Collapse isOpen={this.state.isOpen} navbar>
                         <Nav className="ml-auto" navbar>
                             <NavItem>
-                                <NavLink href="/">Cases</NavLink>
+                                <NavLink>Cases</NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink href="/">Know your options</NavLink>
+                                <NavLink href="/options">Know your options</NavLink>
                             </NavItem>
                         </Nav>
                     </Collapse>
