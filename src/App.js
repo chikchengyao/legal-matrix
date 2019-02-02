@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import './App.css';
 import NavigationBar from './components/navbar/Navbar'
+import AboutUs from './components/AboutUs/AboutUs'
 
 class App extends Component {
     render() {
@@ -11,7 +12,7 @@ class App extends Component {
                     <div>
                         <NavigationBar/>
                         <Switch>
-                            <Route exact path="/" component={NavigationBar}/>
+                            <Route exact path="/" component={AboutUs}/>
                         </Switch>
                     </div>
                 </Router>
