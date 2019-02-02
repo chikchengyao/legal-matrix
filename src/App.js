@@ -14,7 +14,7 @@ class App extends Component {
                         <NavigationBar/>
                         <Switch>
                             <Route exact path="/" component={AboutUs}/>
-                            <Route path={"/options"} component={Tree}/>
+                            <Route exact path={"/options"} component={Tree}/>
                         </Switch>
                     </div>
                 </Router>

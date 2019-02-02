@@ -29,7 +29,7 @@ class NavigationBar extends Component {
             <div>
                 <Navbar color="dark" dark expand="md">
                     <span className={"ml-3"}/>
-                    <NavbarBrand style={{"color": "white"}}><h3 ref="/">Goko</h3></NavbarBrand>
+                    <NavbarBrand href="/" style={{"color": "white"}}><h3 ref="/">Goko</h3></NavbarBrand>
                     <span className={"ml-2"}/>
                     <h6 className="sub-brand mb-0">bringing legal advice to the masses</h6>
                     <NavbarToggler onClick={this.toggle} />

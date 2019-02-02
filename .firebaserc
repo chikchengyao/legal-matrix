@@ -1,5 +1,6 @@
 {
   "projects": {
-    "legal-matrix-prod": "legal-matrix"
+    "legal-matrix-prod": "legal-matrix",
+    "default": "legal-matrix"
   }
 }
